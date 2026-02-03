@@ -197,8 +197,127 @@ int findMyIndex(List<NeonAcademyMember> members) {
   return members.indexWhere((element) => element.fullName == 'Remzican');
 }
 
+List<NeonAcademyMember> findMentors(List<NeonAcademyMember> members) {
+  List<NeonAcademyMember> mentors = [];
+
+  for (var member in members) {
+    if (member.mentorLevel != null) {
+      mentors.add(member);
+    }
+  }
+
+  return mentors;
+}
+
+List<NeonAcademyMember> deleteSpesificMembers(
+  List<NeonAcademyMember> members,
+  String memberLevel,
+) {
+  List<NeonAcademyMember> newList = members;
+
+  members.removeWhere((member) => member.memberLevel == memberLevel);
+
+  return newList;
+}
+
 NeonAcademyMember findOlder(List<NeonAcademyMember> members) {
   sortAges(members);
 
   return members.first;
+}
+
+NeonAcademyMember findLongestName(List<NeonAcademyMember> member) {
+  int nameLength = 0;
+  member.sort((a, b) => b.fullName.length.compareTo(a.fullName.length));
+
+  nameLength = member.first.fullName.length;
+  print('Longest Name Length: $nameLength');
+  return member.first;
+}
+
+List<NeonAcademyMember> findSameHoroscope(
+  List<NeonAcademyMember> members,
+  String horoscope,
+) {
+  List<NeonAcademyMember> newList = [];
+
+  for (var member in members) {
+    if (member.horoscope.toLowerCase() == horoscope.toLowerCase()) {
+      newList.add(member);
+    }
+  }
+
+  return newList;
+}
+
+String findCommonHouseTown(List<NeonAcademyMember> members) {
+  Map<String, int> homeTownCount = {};
+
+  for (var member in members) {
+    homeTownCount.update(
+      member.homeTown,
+      (value) => value + 1,
+      ifAbsent: () => 1,
+    );
+  }
+
+  String commonHomeTown = '';
+  int maxCount = 0;
+
+  homeTownCount.forEach((key, value) {
+    if (value > maxCount) {
+      maxCount = value;
+      commonHomeTown = key;
+    }
+  });
+
+  return commonHomeTown;
+}
+
+int averageAge(List<NeonAcademyMember> members) {
+  int totalAge = 0;
+
+  for (var member in members) {
+    totalAge += member.age;
+  }
+
+  return (totalAge / members.length).round();
+}
+
+List<ContactInformation> getAllContactInformations() {
+  List<NeonAcademyMember> members = getAllMembers();
+  List<ContactInformation> contactInformations = [];
+
+  for (var member in members) {
+    contactInformations.add(member.contactInformation);
+  }
+
+  for (final member in contactInformations) {
+    print('Email: ${member.email}');
+  }
+
+  return contactInformations;
+}
+
+List<NeonAcademyMember> sortForMemberLevel(List<NeonAcademyMember> members) {
+  List<NeonAcademyMember> newList = members;
+
+  newList.sort((a, b) => b.memberLevel.compareTo(a.memberLevel));
+
+  return newList;
+}
+
+List<ContactInformation> getAllSameTitleContactInformations(
+  List<NeonAcademyMember> members,
+  String title,
+) {
+  List<ContactInformation> contactInformations = [];
+
+  for (var member in members) {
+    if (member.title.toLowerCase() == title.toLowerCase()) {
+      contactInformations.add(member.contactInformation);
+    }
+  }
+
+  return contactInformations;
 }
