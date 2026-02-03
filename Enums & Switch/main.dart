@@ -81,4 +81,15 @@ void main() {
     Team.FLUTTERDEVELOPMENTTEAM,
   );
   printAlMembers(flutterDevelopmentTeam);
+
+  print('\n==Team Members==\n');
+
+  var teamCounts = getTeamCounts(allmembers);
+  print('Total UI/UX Members :  ${teamCounts['UI_UXDESIGNTEAM'] ?? 0}');
+
+  getTeamMembers(allmembers, Team.FLUTTERDEVELOPMENTTEAM);
+
+  print('\n====\n');
+
+  describeMemberTeam(allmembers, 'Remzican');
 }

@@ -348,3 +348,70 @@ List<NeonAcademyMember> getFlutterTeam(
 
   return newList;
 }
+
+Map<String, int> getTeamCounts(List<NeonAcademyMember> members) {
+  Map<String, int> teamCounts = {};
+
+  for (var member in members) {
+    teamCounts.update(
+      member.team.name,
+      (value) => value + 1,
+      ifAbsent: () => 1,
+    );
+  }
+
+  return teamCounts;
+}
+
+void getTeamMembers(List<NeonAcademyMember> members, Team team) {
+  List<NeonAcademyMember> newList = [];
+
+  int memberCounter = 0;
+
+  for (var member in members) {
+    if (member.team == team) {
+      newList.add(member);
+      memberCounter++;
+    }
+  }
+
+  printAlMembers(newList);
+  print('--------------');
+  print('${team.name} Members : ${memberCounter}');
+}
+
+NeonAcademyMember? findMemberByName(
+  List<NeonAcademyMember> members,
+  String memberName,
+) {
+  for (var member in members) {
+    if (member.fullName.toLowerCase() == memberName.toLowerCase()) {
+      return member;
+    }
+  }
+  return null;
+}
+
+void describeMemberTeam(List<NeonAcademyMember> members, String memberName) {
+
+  NeonAcademyMember? member = findMemberByName(members, memberName);
+
+  switch (member!.team) {
+    case Team.FLUTTERDEVELOPMENTTEAM:
+      print('This member is a skilled Flutter developer');
+      break;
+
+    case Team.IOSDEVELOPMENTTEAM:
+      print('This member is a skilled IOS developer');
+      break;
+    case Team.ANDROIDDEVELOPMENTTEAM:
+      print('This member is a skilled Android developer');
+      break;
+    case Team.UI_UXDESIGNTEAM:
+      print('This member is a talented designer');
+      break;
+
+    default:
+      print('This member belongs to another team');
+  }
+}
