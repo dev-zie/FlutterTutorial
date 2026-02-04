@@ -334,7 +334,7 @@ List<ContactInformation> getAllSameTitleContactInformations(
   return contactInformations;
 }
 
-List<NeonAcademyMember> getFlutterTeam(
+List<NeonAcademyMember> getTeamMembers(
   List<NeonAcademyMember> members,
   Team team,
 ) {
@@ -363,9 +363,8 @@ Map<String, int> getTeamCounts(List<NeonAcademyMember> members) {
   return teamCounts;
 }
 
-void getTeamMembers(List<NeonAcademyMember> members, Team team) {
+void getTeamMembersCount(List<NeonAcademyMember> members, Team team) {
   List<NeonAcademyMember> newList = [];
-
   int memberCounter = 0;
 
   for (var member in members) {
@@ -393,7 +392,6 @@ NeonAcademyMember? findMemberByName(
 }
 
 void describeMemberTeam(List<NeonAcademyMember> members, String memberName) {
-
   NeonAcademyMember? member = findMemberByName(members, memberName);
 
   switch (member!.team) {
@@ -413,5 +411,123 @@ void describeMemberTeam(List<NeonAcademyMember> members, String memberName) {
 
     default:
       print('This member belongs to another team');
+  }
+}
+
+void olderThan(List<NeonAcademyMember> members, int age) {
+  for (var member in members) {
+    if (member.age > age && member.team == Team.FLUTTERDEVELOPMENTTEAM) {
+      print(member.fullName);
+    }
+  }
+}
+
+void promoteMember(List<NeonAcademyMember> members, String memberName) {
+  NeonAcademyMember? member = findMemberByName(members, memberName);
+
+  switch (member!.team) {
+    case Team.FLUTTERDEVELOPMENTTEAM:
+      print('This member is promoted to Senior Flutter Developer');
+      break;
+
+    case Team.IOSDEVELOPMENTTEAM:
+      print('This member is promoted to Senior IOS Developer');
+      break;
+    case Team.ANDROIDDEVELOPMENTTEAM:
+      print('This member is promoted to Senior Android Developer');
+      break;
+    case Team.UI_UXDESIGNTEAM:
+      print('This member is promoted to Lead Designer');
+      break;
+
+    default:
+      print('This member belongs to another team');
+  }
+}
+
+int averageAgeTeamMembers(List<NeonAcademyMember> members, Team team) {
+  getTeamMembers(members, team);
+  return averageAge(members);
+}
+
+void describeTeam(Team team) {
+  switch (team) {
+    case Team.FLUTTERDEVELOPMENTTEAM:
+      print('The Flutter Development Team is the backbone of our academy');
+      break;
+
+    case Team.UI_UXDESIGNTEAM:
+      print('The UI/UX Design Team is the face of our academy');
+      break;
+
+    default:
+      print('This team is not found');
+  }
+}
+
+List<ContactInformation> getThistTeamContacts(
+  List<NeonAcademyMember> members,
+  Team team,
+) {
+  var teamMembers = getTeamMembers(members, team);
+
+  List<ContactInformation> contactInformations = [];
+
+  for (var member in teamMembers) {
+    contactInformations.add(member.contactInformation);
+  }
+
+  for (final member in contactInformations) {
+    print('Email: ${member.email} Phone: ${member.phoneNumber}');
+  }
+
+  return contactInformations;
+}
+
+void describeMemberByTeamAndAge(List<NeonAcademyMember> members) {
+  for (var member in members) {
+    switch (member.team) {
+      case Team.FLUTTERDEVELOPMENTTEAM:
+        if (member.age > 23) {
+          print('${member.fullName} is a seasoned Flutter developer');
+        } else {
+          print(
+            '${member.fullName} is a Flutter developer with great potential',
+          );
+        }
+        break;
+
+      case Team.UI_UXDESIGNTEAM:
+        if (member.age < 24) {
+          print('${member.fullName} is a rising star in the design world');
+        } else {
+          print('${member.fullName} is an experienced UI/UX designer');
+        }
+        break;
+
+      case Team.ANDROIDDEVELOPMENTTEAM:
+        if (member.age < 24) {
+          print('${member.fullName} is a rising star in the Android world');
+        } else {
+          print('${member.fullName} is an experienced Android developer');
+        }
+        break;
+
+      case Team.FULLSTACKTEAM:
+        if (member.age < 24) {
+          print('${member.fullName} is a rising star in the FullStack world');
+        } else {
+          print('${member.fullName} is an experienced FullStack developer');
+        }
+        break;
+
+      case Team.IOSDEVELOPMENTTEAM:
+        if (member.age < 24) {
+          print('${member.fullName} is a rising star in the IOS world');
+        } else {
+          print('${member.fullName} is an experienced IOS developer');
+        }
+        break;
+    }
   }
 }

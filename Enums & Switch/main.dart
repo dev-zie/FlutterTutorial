@@ -76,7 +76,7 @@ void main() {
   }
 
   print('\n==Flutter Development Team==\n');
-  var flutterDevelopmentTeam = getFlutterTeam(
+  var flutterDevelopmentTeam = getTeamMembers(
     allmembers,
     Team.FLUTTERDEVELOPMENTTEAM,
   );
@@ -87,9 +87,33 @@ void main() {
   var teamCounts = getTeamCounts(allmembers);
   print('Total UI/UX Members :  ${teamCounts['UI_UXDESIGNTEAM'] ?? 0}');
 
-  getTeamMembers(allmembers, Team.FLUTTERDEVELOPMENTTEAM);
+  getTeamMembersCount(allmembers, Team.FLUTTERDEVELOPMENTTEAM);
 
   print('\n====\n');
 
   describeMemberTeam(allmembers, 'Remzican');
+
+  print('====');
+  olderThan(allmembers, 21);
+
+  print('====');
+  promoteMember(allmembers, 'Remzican');
+
+  print('====');
+  var avgTeamMembersAge = averageAgeTeamMembers(
+    members,
+    Team.FLUTTERDEVELOPMENTTEAM,
+  );
+
+  print('This Team Members` Average Age: ${avgTeamMembersAge}');
+
+  print('====');
+
+  describeTeam(Team.FLUTTERDEVELOPMENTTEAM);
+
+  print('====');
+  getThistTeamContacts(allmembers, Team.FLUTTERDEVELOPMENTTEAM);
+
+  print('====');
+  describeMemberByTeamAndAge(allmembers);
 }
