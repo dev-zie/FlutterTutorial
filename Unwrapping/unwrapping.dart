@@ -1,5 +1,5 @@
-import 'contact_information.dart';
-import 'neon_academy_members.dart';
+import 'team.dart';
+import 'stuct_class.dart';
 
 List<NeonAcademyMember> getAllMembers() {
   return [
@@ -14,9 +14,11 @@ List<NeonAcademyMember> getAllMembers() {
         phoneNumber: '+90 543 210 1234',
         email: 'remzican@gmail.com',
       ),
+      team: Team.FLUTTERDEVELOPMENTTEAM,
+      motivationLevel: 90,
     ),
     NeonAcademyMember(
-      fullName: 'Beyza Yalvac',
+      fullName: 'Beyza',
       title: 'Flutter Developer',
       horoscope: 'Lion',
       memberLevel: 'A2',
@@ -26,6 +28,7 @@ List<NeonAcademyMember> getAllMembers() {
         phoneNumber: '+90 543 210 1235',
         email: 'beyza@gmail.com',
       ),
+      team: Team.FLUTTERDEVELOPMENTTEAM,
     ),
     NeonAcademyMember(
       fullName: 'Baris',
@@ -38,6 +41,7 @@ List<NeonAcademyMember> getAllMembers() {
         phoneNumber: '+90 543 210 1236',
         email: 'baris@gmail.com',
       ),
+      team: Team.FULLSTACKTEAM,
     ),
     NeonAcademyMember(
       fullName: 'Irem',
@@ -50,6 +54,8 @@ List<NeonAcademyMember> getAllMembers() {
         phoneNumber: '+90 543 210 1238',
         email: 'irem@gmail.com',
       ),
+      team: Team.FLUTTERDEVELOPMENTTEAM,
+      motivationLevel: 60,
     ),
     NeonAcademyMember(
       fullName: 'Serhat',
@@ -62,6 +68,7 @@ List<NeonAcademyMember> getAllMembers() {
         phoneNumber: '+90 543 250 1236',
         email: 'Serhat@gmail.com',
       ),
+      team: Team.IOSDEVELOPMENTTEAM,
     ),
     NeonAcademyMember(
       fullName: 'Samet',
@@ -74,6 +81,7 @@ List<NeonAcademyMember> getAllMembers() {
         phoneNumber: '+90 543 210 1237',
         email: 'samet@gmail.com',
       ),
+      team: Team.FULLSTACKTEAM,
     ),
     NeonAcademyMember(
       fullName: 'Tuna',
@@ -86,6 +94,8 @@ List<NeonAcademyMember> getAllMembers() {
         phoneNumber: '+90 543 210 1226',
         email: 'tuna@gmail.com',
       ),
+      team: Team.UI_UXDESIGNTEAM,
+      motivationLevel: 40,
     ),
     NeonAcademyMember(
       fullName: 'Anil',
@@ -98,6 +108,7 @@ List<NeonAcademyMember> getAllMembers() {
         phoneNumber: '+90 543 250 1236',
         email: 'Serhat@gmail.com',
       ),
+      team: Team.FLUTTERDEVELOPMENTTEAM,
     ),
     NeonAcademyMember(
       fullName: 'Zeynep',
@@ -110,6 +121,7 @@ List<NeonAcademyMember> getAllMembers() {
         phoneNumber: '+90 543 220 1236',
         email: 'Zeynep@gmail.com',
       ),
+      team: Team.FULLSTACKTEAM,
     ),
     NeonAcademyMember(
       fullName: 'Sevval',
@@ -122,14 +134,92 @@ List<NeonAcademyMember> getAllMembers() {
         phoneNumber: '+90 553 210 1236',
         email: 'sevval@gmail.com',
       ),
+      team: Team.FLUTTERDEVELOPMENTTEAM,
+    ),
+    NeonAcademyMember(
+      fullName: 'Sercan',
+      title: 'IOS Developer',
+      horoscope: 'Libra',
+      memberLevel: 'B2',
+      homeTown: 'Bursa',
+      age: 28,
+      contactInformation: ContactInformation(
+        phoneNumber: '+90 543 260 1236',
+        email: 'sercan@gmail.com',
+      ),
+      mentorLevel: 'B2',
+      team: Team.IOSDEVELOPMENTTEAM,
+      motivationLevel: 20,
     ),
   ];
 }
 
-void printAlMembers(List<NeonAcademyMember> members) {
-  for (final member in members) {
-    print(
-      '${member.fullName} | ${member.memberLevel} | ${member.title}  | ${member.age} | ${member.horoscope} | ${member.homeTown} | ${member.contactInformation.email} | ${member.contactInformation.phoneNumber}',
-    );
+void main() {
+  var allmembers = getAllMembers();
+
+  void increaseMotivation(int level) {
+    for (var i = 0; i < allmembers.length; i++) {
+      if (allmembers[i].motivationLevel != null &&
+          allmembers[i].motivationLevel! < 100) {
+        allmembers[i].motivationLevel = allmembers[i].motivationLevel! + level;
+      } else {
+        allmembers[i].motivationLevel = 1;
+      }
+    }
   }
+
+  increaseMotivation(50);
+
+  print('\n==Section 1==\n');
+
+  void getLevel(String name) {
+    for (var member in allmembers) {
+      if (name.toLowerCase() == member.fullName.toLowerCase()) {
+        if (member.motivationLevel == null) {
+          print('This member has no motivation level set');
+        }
+
+        if (member.motivationLevel! >= 5) {
+          print('This member is highly motivated');
+        }
+      }
+    }
+  }
+
+  getLevel('Remzican');
+
+  print('\n==Section 2==\n');
+
+  String motivationScale(int? motivationLevel) {
+    if (motivationLevel == null) {
+      return 'not motivated ';
+    } else if (motivationLevel > 50) {
+      return 'moderately motivated';
+    } else {
+      return 'highly motivated';
+    }
+  }
+
+  print(motivationScale(60));
+
+  print('\n==Section 3==\n');
+
+  int getMotivationLevel(NeonAcademyMember member) {
+    return member.motivationLevel ?? 0;
+  }
+
+  print(getMotivationLevel(allmembers.first));
+
+  print('\n==Section 4==\n');
+
+  bool resultMotivation(NeonAcademyMember member, var expectedMotivationLevel) {
+    if (member.motivationLevel != null &&
+        member.motivationLevel! >= expectedMotivationLevel) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  print(resultMotivation(allmembers.first, 60));
 }
